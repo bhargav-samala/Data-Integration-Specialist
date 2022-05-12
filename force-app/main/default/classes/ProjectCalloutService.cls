@@ -1,14 +1,13 @@
 public without sharing class ProjectCalloutService {
     //Complete the implementation for business and callout logic
     @InvocableMethod(label='Post Opportunity To PMS')
-	public static void postOpportunityToPMS(List<String> strId){
-        Id oppId = strId[0];
+	public static void postOpportunityToPMS(List<Id> oppId){
         String st = ServiceTokens__c.getValues('ProjectServiceToken').Token__c;
 
         Opportunity opp = [
             SELECT ID, Name, CloseDate, Amount, Account.Name, StageName  
             FROM opportunity 
-            WHERE ID = :oppId
+            WHERE ID = :oppId[0]
             WITH SECURITY_ENFORCED
         ];
 
